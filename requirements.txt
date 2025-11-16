@@ -1,4 +1,4 @@
-fastapi
-uvicorn[standard]
-web3
-requests
+ fastapi
+ uvicorn[standard]
+ web3==7.2.0
+ requests

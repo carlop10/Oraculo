@@ -4,24 +4,22 @@ from typing import Optional
 import os
 import requests
 
+from dotenv import load_dotenv
+load_dotenv()
+
+
 app = FastAPI()
 
 # ================== CONFIGURACIÓN BLOCKCHAIN ==================
 
 # Conexión a Sepolia vía Alchemy
-RPC_URL = "https://eth-sepolia.g.alchemy.com/v2/dSfxKDUR1T06yEdb3pPDzA94HzMYgs_e"
+RPC_URL = os.getenv("RPC_URL")
 
 # Dirección del contrato
-CONTRACT_ADDRESS = Web3.to_checksum_address(
-    "0x50268060AAd99FEdB907080Ec8138E9f4C5A0e2d"
-)
+CONTRACT_ADDRESS = Web3.to_checksum_address(os.getenv("CONTRACT_ADDRESS"))
 
 # Private key de PRUEBA (la que autorizaste usar aquí).
-PRIVATE_KEY = os.environ.get(
-    "PRIVATE_KEY",
-    "0x3a2a62a60b73ab3568670f459cf50aae33de80de95aeae495a4098981a3716da"
-)
-
+PRIVATE_KEY = os.getenv("PRIVATE_KEY")
 CHAIN_ID = 11155111  # Sepolia
 
 # ABI mínimo con la función storeReading(...)
@@ -43,11 +41,8 @@ ABI_JSON = [
 
 # ================== CONFIGURACIÓN PINATA ==================
 
-PINATA_JWT = (
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiIwNTAyNDQ5ZS04NWE2LTRkYTItYjQyNC1iZmY4NDY4OTZjYWQiLCJlbWFpbCI6InlhaXJyQHVuaW5vcnRlLmVkdS5jbyIsImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJwaW5fcG9saWN5Ijp7InJlZ2lvbnMiOlt7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6IkZSQTEifSx7ImRlc2lyZWRSZXBsaWNhdGlvbkNvdW50IjoxLCJpZCI6Ik5ZQzEifV0sInZlcnNpb24iOjF9LCJtZmFfZW5hYmxlZCI6ZmFsc2UsInN0YXR1cyI6IkFDVElWRSJ9LCJhdXRoZW50aWNhdGlvblR5cGUiOiJzY29wZWRLZXkiLCJzY29wZWRLZXlLZXkiOiIyZjlhMmE0MmQwYzU1MGE2YTJhOCIsInNjb3BlZEtleVNlY3JldCI6IjhjZjIyNmZmMGJlM2U3Njg3Yjc1YzFlZTFlNGQ3Y2JjN2RhZGM5YTcwMDg0YTkxNGVlYmQ5OWFiYWFhMDVmMzYiLCJleHAiOjE3ODIyNjM0MzV9.2koLJu6_PJQzsTlQMxtASDR5xBoGFvQU9HRE4sfKRFQ"
-)
-
-PINATA_URL = "https://api.pinata.cloud/pinning/pinJSONToIPFS"
+PINATA_JWT = os.getenv("PINATA_JWT")
+PINATA_URL = os.getenv("PINATA_URL")
 
 # ================== INICIALIZACIÓN WEB3 ==================
 
